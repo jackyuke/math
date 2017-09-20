@@ -189,13 +189,13 @@ public:
     }
     ~Vector3() {}
 
-    const Vector3& operator= ( const Vector3& _rhs )
-        {
-            x = _rhs.x;
-            y = _rhs.y;
-            z = _rhs.z;
-            return *this;
-        }
+    const Vector3& operator= (const Vector3& _rhs)
+    {
+        x = _rhs.x;
+        y = _rhs.y;
+        z = _rhs.z;
+        return *this;
+    }
     inline Vector3 operator-() const
     {
         Vector3 _v;
@@ -436,6 +436,9 @@ public:
     Vector3 getY() const;
     Vector3 getZ() const;
 
+    const double *getData() const { return _m; }
+    double *getData() { return _m; }
+
     static const Matrix3 NORMALXYZ;
 
 private:
@@ -490,28 +493,60 @@ public:
             _m[i] = m[i];
     }
 
-    Matrix4 ( const Matrix4& rhs )
+    Matrix4(const Matrix3 &m3)
     {
-        _copy ( rhs );
+        const double *m = m3.getData();
+        _m[0] = m[0];
+        _m[1] = m[1];
+        _m[2] = m[2];
+        _m[3] = 0.0;
+        _m[4] = m[3];
+        _m[5] = m[4];
+        _m[6] = m[5];
+        _m[7] = 0.0;
+        _m[8] = m[6];
+        _m[9] = m[7];
+        _m[10] = m[8];
+        _m[11] = 0.0;
+        _m[12] = 0.0;
+        _m[13] = 0.0;
+        _m[14] = 0.0;
+        _m[15] = 1.0;
+    }
+
+    Matrix4(const Matrix4& rhs)
+    {
+        _copy(rhs);
     }
 
     ~Matrix4();
 
-    inline
-        void getData ( float* m ) const
+    inline void getData(double* m) const
     {
-        for ( int i = 0; i < 16; i++ )
+        for (int i = 0; i < 16; i++)
             m[i] = _m[i];
     }
 
-    inline
-        const double* data()
+    inline void getData(double m[4][4]) const
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; ++j)
+                m[i][j] = _m[i * 4 + j];
+        }
+    }
+
+    inline const double* data() const
     {
         return _m;
     }
 
-    inline
-        Matrix4 operator* ( const Matrix4& mr )
+    inline double* data()
+    {
+        return _m;
+    }
+
+    inline Matrix4 operator* (const Matrix4& mr)
     {
         return
             Matrix4 (

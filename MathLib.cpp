@@ -231,34 +231,34 @@ Matrix3 Matrix4::rMul ( const Matrix3& m ) const
 
 Matrix4 Matrix4::inverse()
 {
-    float m00 = _m[0], m01 = _m[1], m02 = _m[2], m03 = _m[3];
-    float m10 = _m[4], m11 = _m[5], m12 = _m[6], m13 = _m[7];
-    float m20 = _m[8], m21 = _m[9], m22 = _m[10], m23 = _m[11];
-    float m30 = _m[12], m31 = _m[13], m32 = _m[14], m33 = _m[15];
+    double m00 = _m[0], m01 = _m[1], m02 = _m[2], m03 = _m[3];
+    double m10 = _m[4], m11 = _m[5], m12 = _m[6], m13 = _m[7];
+    double m20 = _m[8], m21 = _m[9], m22 = _m[10], m23 = _m[11];
+    double m30 = _m[12], m31 = _m[13], m32 = _m[14], m33 = _m[15];
 
-    float v0 = m20 * m31 - m21 * m30;
-    float v1 = m20 * m32 - m22 * m30;
-    float v2 = m20 * m33 - m23 * m30;
-    float v3 = m21 * m32 - m22 * m31;
-    float v4 = m21 * m33 - m23 * m31;
-    float v5 = m22 * m33 - m23 * m32;
+    double v0 = m20 * m31 - m21 * m30;
+    double v1 = m20 * m32 - m22 * m30;
+    double v2 = m20 * m33 - m23 * m30;
+    double v3 = m21 * m32 - m22 * m31;
+    double v4 = m21 * m33 - m23 * m31;
+    double v5 = m22 * m33 - m23 * m32;
 
-    float t00 = + ( v5 * m11 - v4 * m12 + v3 * m13 );
-    float t10 = - ( v5 * m10 - v2 * m12 + v1 * m13 );
-    float t20 = + ( v4 * m10 - v2 * m11 + v0 * m13 );
-    float t30 = - ( v3 * m10 - v1 * m11 + v0 * m12 );
+    double t00 = +(v5 * m11 - v4 * m12 + v3 * m13);
+    double t10 = -(v5 * m10 - v2 * m12 + v1 * m13);
+    double t20 = +(v4 * m10 - v2 * m11 + v0 * m13);
+    double t30 = -(v3 * m10 - v1 * m11 + v0 * m12);
 
-    float invDet = 1 / ( t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03 );
+    double invDet = 1 / (t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03);
 
-    float d00 = t00 * invDet;
-    float d10 = t10 * invDet;
-    float d20 = t20 * invDet;
-    float d30 = t30 * invDet;
+    double d00 = t00 * invDet;
+    double d10 = t10 * invDet;
+    double d20 = t20 * invDet;
+    double d30 = t30 * invDet;
 
-    float d01 = - ( v5 * m01 - v4 * m02 + v3 * m03 ) * invDet;
-    float d11 = + ( v5 * m00 - v2 * m02 + v1 * m03 ) * invDet;
-    float d21 = - ( v4 * m00 - v2 * m01 + v0 * m03 ) * invDet;
-    float d31 = + ( v3 * m00 - v1 * m01 + v0 * m02 ) * invDet;
+    double d01 = -(v5 * m01 - v4 * m02 + v3 * m03) * invDet;
+    double d11 = +(v5 * m00 - v2 * m02 + v1 * m03) * invDet;
+    double d21 = -(v4 * m00 - v2 * m01 + v0 * m03) * invDet;
+    double d31 = +(v3 * m00 - v1 * m01 + v0 * m02) * invDet;
 
     v0 = m10 * m31 - m11 * m30;
     v1 = m10 * m32 - m12 * m30;
@@ -267,10 +267,10 @@ Matrix4 Matrix4::inverse()
     v4 = m11 * m33 - m13 * m31;
     v5 = m12 * m33 - m13 * m32;
 
-    float d02 = + ( v5 * m01 - v4 * m02 + v3 * m03 ) * invDet;
-    float d12 = - ( v5 * m00 - v2 * m02 + v1 * m03 ) * invDet;
-    float d22 = + ( v4 * m00 - v2 * m01 + v0 * m03 ) * invDet;
-    float d32 = - ( v3 * m00 - v1 * m01 + v0 * m02 ) * invDet;
+    double d02 = +(v5 * m01 - v4 * m02 + v3 * m03) * invDet;
+    double d12 = -(v5 * m00 - v2 * m02 + v1 * m03) * invDet;
+    double d22 = +(v4 * m00 - v2 * m01 + v0 * m03) * invDet;
+    double d32 = -(v3 * m00 - v1 * m01 + v0 * m02) * invDet;
 
     v0 = m21 * m10 - m20 * m11;
     v1 = m22 * m10 - m20 * m12;
@@ -279,10 +279,10 @@ Matrix4 Matrix4::inverse()
     v4 = m23 * m11 - m21 * m13;
     v5 = m23 * m12 - m22 * m13;
 
-    float d03 = - ( v5 * m01 - v4 * m02 + v3 * m03 ) * invDet;
-    float d13 = + ( v5 * m00 - v2 * m02 + v1 * m03 ) * invDet;
-    float d23 = - ( v4 * m00 - v2 * m01 + v0 * m03 ) * invDet;
-    float d33 = + ( v3 * m00 - v1 * m01 + v0 * m02 ) * invDet;
+    double d03 = -(v5 * m01 - v4 * m02 + v3 * m03) * invDet;
+    double d13 = +(v5 * m00 - v2 * m02 + v1 * m03) * invDet;
+    double d23 = -(v4 * m00 - v2 * m01 + v0 * m03) * invDet;
+    double d33 = +(v3 * m00 - v1 * m01 + v0 * m02) * invDet;
 
     return Matrix4 ( d00, d01, d02, d03,
                      d10, d11, d12, d13,
